@@ -60,7 +60,18 @@ az vm create --resource-group ${RG} --name SP1-WINSVR1 --image Win2022Datacenter
 # So we have to connect spoke windows server through only hub bastion host.
 # TO connect bastion to spoke etwork we need Application rules for internal communication.
 # we can see in the above Azure_Firewall.png file to get clear idea on network rules.
-
+# You DO need Azure Firewall rules if:
+<# You have a User Defined Route (UDR) in:
+ Spoke subnet, or
+ Bastion subnet (Hub)
+ That forces traffic to go via Azure Firewall (i.e., next hop = AzureFirewall)
+ In this case:
+ Yes, you must create Azure Firewall Network Rules to allow traffic such as:
+ Source: Bastion subnet IP range
+ Destination: Spoke Windows Server IP
+ Protocol: TCP
+ Port: 3389 (RDP)
+ #>
 
 
 
