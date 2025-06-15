@@ -55,6 +55,10 @@ az vm create --resource-group ${RG} --name SP1-WINSVR1 --image Win2022Datacenter
 # Click on Fire policy which is created at the time of Creating Firewall.
 # Createing Network rules. network collection group -->> rule-group-->> rule collections-->> rules
 # You can network watcher HOP it will route to firewall.
+# Application rule allow you network internally.
+# means after routed traffic to firewall we can not connect RDP SPOKE server directly.
+# So we have to connect spoke windows server through only hub bastion host.
+# TO connect bastion to spoke etwork we need Application rules for internal communication.
 
 
 
