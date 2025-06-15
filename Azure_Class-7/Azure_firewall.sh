@@ -59,6 +59,8 @@ az vm create --resource-group ${RG} --name SP1-WINSVR1 --image Win2022Datacenter
 # means after routed traffic to firewall we can not connect RDP SPOKE server directly.
 # So we have to connect spoke windows server through only hub bastion host.
 # TO connect bastion to spoke etwork we need Application rules for internal communication.
+# we can see in the above Azure_Firewall.png file to get clear idea on network rules.
+
 
 
 
