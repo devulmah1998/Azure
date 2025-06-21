@@ -96,6 +96,7 @@ az vm create \
 
 #Application security Groups:
 # Arbitarily grouping of vm's ( Selceting vm's and grouping them like app vm's, db vm's).
+# Create ASG
 az vm create -g ${RG} -n WEBVM2 --image $IMAGE --vnet-name ${RG}-vNET1 \
 --subnet ${RG}-Subnet-1 --admin-username adminsree --admin-password "India@123456" --size Standard_B1s --storage-sku StandardSSD_LRS --nsg ${RG}_NSG1 --asgs WEB_ASG --custom-data cloud-init.txt
 
@@ -118,3 +119,5 @@ sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
 bind-address            = *
 sudo systemctl restart mysql.service
 telnet 10.1.1.6 3306# Variables
+
+az group delete --name NSG-RG --yes --no-wait
