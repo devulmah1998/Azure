@@ -41,30 +41,43 @@ pip3 install ipython
 
 # enter this one if the traffic is routed to public or ptivate below one
    nslookup azureb46kv.vault.azure.net    -- #it will show you
-
-# from azure.keyvault.secrets import SecretClient
+# create file called keyvaults.py
+# add below code and run python3 keyvaults.py
+from azure.keyvault.secrets import SecretClient
 from azure.identity import DefaultAzureCredential
 import boto3
-key_vault_name = "azureb46kv"
-key_vault_uri = f"https://azureb46kv.vault.azure.net"
-secret_name2 = "aws-access-key"
-secret_name3 = "aws-secret-key"
+
+key_vault_name = "keyvault1-mahesh"
+key_vault_uri = f"https://{key_vault_name}.vault.azure.net"
+
+# Use exact secret names (case-sensitive)
+secret_name2 = "AWSAccessKeyID"
+secret_name3 = "AWSSecretAccessKey"
+
+# Authenticate to Key Vault
 credential = DefaultAzureCredential()
 client = SecretClient(vault_url=key_vault_uri, credential=credential)
+
+# Retrieve secrets
 retrieved_secret2 = client.get_secret(secret_name2)
 retrieved_secret3 = client.get_secret(secret_name3)
 
-print(f"The value of secret '{secret_name2}' in '{key_vault_name}' is: '{retrieved_secret2.value}'")
-print(f"The value of secret '{secret_name3}' in '{key_vault_name}' is: '{retrieved_secret3.value}'")
+print(f"The value of secret '{secret_name2}' is: '{retrieved_secret2.value}'")
+print(f"The value of secret '{secret_name3}' is: '{retrieved_secret3.value}'")
 
-client = boto3.client('ec2',region_name="us-east-1",
-                    	aws_access_key_id=retrieved_secret2.value,
-                    	aws_secret_access_key=retrieved_secret3.value)
+# Use secrets with boto3
+ec2_client = boto3.client(
+    'ec2',
+    region_name="us-east-1",
+    aws_access_key_id=retrieved_secret2.value,
+    aws_secret_access_key=retrieved_secret3.value
+)
 
-#List VPC
-vpcs = client.describe_vpcs().get('Vpcs',[])
+# List VPCs
+vpcs = ec2_client.describe_vpcs().get('Vpcs', [])
 for vpc in vpcs:
-  print(vpc['VpcId'],'----->',vpc['CidrBlock'])
+    print(vpc['VpcId'], '----->', vpc['CidrBlock'])
+
 
 #List S3 Bucket
 client = boto3.client('s3',region_name="us-east-1",
