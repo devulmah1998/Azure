@@ -8,6 +8,18 @@
 # we can connect the aws services from the azure server by accessing the key-vaults informations or credentials.
 # server==>> key-vaults==>>connects to internet publicly. and get the information from the aws.
 # with out connecting to internet we can go with private endpointsubnet it will create one interface it will used to connect the services through the public ip's.
+#keyvault create
+az keyvault create   --name keyvault1-mahesh  --resource-group HUB-RG-1   --location eastus
+#keyvault: adding aws keys
+az keyvault secret set \
+  --vault-name keyvault1-mahesh \
+  --name "AWSAccessKeyID" \
+  --value "AKIA4K2UAPDWQMKI4KUM"
+#----------------------------------------------------------------------
+az keyvault secret set \
+  --vault-name keyvault1-mahesh \
+  --name "AWSSecretAccessKey" \
+  --value "seegheh"
 
 # disable the public acccess in the azure key-vault networking dropdown.
 
@@ -15,7 +27,7 @@
 # jumpserver traffic routed to privateendpoint interface through name resolution(Private dns zone will be created) than reached to key-valults directly.
 
 apt update && apt install -y python3-pip
-pip3 install azure-keyvault-secrets
+pip3 install azure-keyvault-secrets 
 
 pip3 install azure.identity
 
