@@ -21,6 +21,10 @@ az keyvault secret set \
   --name "AWSSecretAccessKey" \
   --value "seegheh"
 
+# If a VM with system-assigned identity needs to read secrets from a Key Vault:
+
+# Assign Key Vault Secrets User role to the VM’s identity on that Key Vault using IAM.
+
 # disable the public acccess in the azure key-vault networking dropdown.
 
 # privateendpointsubnet interface directly connected to key-vaults.
