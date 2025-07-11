@@ -4,6 +4,12 @@
 #Create linux server in HUB vnet, windows servers for spoke 1 and spoke 2.
 #Change spoke-1 vnet  DNS server -->>custom DNS with 192.168.1.100. [aws server ip]. same as Spoke-2.
 #JumpServerSubnet
+#create bstion host in hub.
+#go to windows server which is crated on aws.
+#Open cmd type ipconfig /all it will give all the info , dns info.
+#type ncpa.cpl it will promt to network connection page.
+#Go to ipv4 option change dns adress which is own server ip. 192.168.1.100 and give on dns ip address 192.168.0.2.
+#
 
 
 
